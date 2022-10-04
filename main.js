@@ -1,10 +1,11 @@
 window.addEventListener("load", () => {
 
-    const $ = str => document.querySelector(str);
+    const getEl = id => document.getElementById(id);
+    const getTime = () => performance.now();
 
     let beatStart, beatEnd, beatCount;
 
-    const display = $(".display");
+    const display = getEl("display");
     
     const updateDisplay = () => {
         const secondsPassed = (beatEnd - beatStart) / 1000;
@@ -16,16 +17,16 @@ window.addEventListener("load", () => {
         beatStart = undefined;
         beatEnd = undefined;
         beatCount = -1;
-        display.innerText = "Tap Tap";
+        display.innerText = "---.--";
     };
 
-    $(".heart").addEventListener("click", () => {
-        if (beatStart === undefined) beatStart = Date.now();
-        beatEnd = Date.now();
+    getEl("heart").addEventListener("click", () => {
+        if (beatStart === undefined) beatStart = getTime();
+        beatEnd = getTime();
         if (++beatCount) updateDisplay();
     });
 
-    $(".reset").addEventListener("click", reset);
+    getEl("reset").addEventListener("click", reset);
 
     reset();
 });
